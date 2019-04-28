@@ -1,0 +1,30 @@
+<configuration>
+  <property> 
+    <name>hive.metastore.warehouse.dir</name> 
+    <value>/user/hive/warehouse</value> 
+  </property>
+  <property>
+    <name>hive.execution.engine</name>
+    <value>mr</value>
+  </property>
+  <property> 
+    <name>hive.exec.scratchdir</name> 
+    <value>tmp</value> 
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:mysql://localhost/metastore?createDatabaseIfNotExist=true</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>com.mysql.jdbc.Driver</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>root</value>
+  </property>
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>root</value>
+  </property>
+</configuration>
