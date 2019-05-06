@@ -129,9 +129,51 @@ Splits: 1,026 total, 1,026 done (100.00%)
 
 ## R-Studio 
 
-TODO: In Progress 
+Install R-Studio 
+
+### Install packages needed for visualizations
+
+```
+install.packages("DBI")
+install.packages("ggmap")
+install.packages("maps")
+install.packages("RPresto")
+install.packages("mapproj")
+```
+
+### Load helper functions from osmsci.R
 
 
+### Connect to the Presto service
+```
+con <- dbConnect(
+  RPresto::Presto(),
+  host='http://localhost',
+  port=8080,
+  user=Sys.getenv('USER'),
+  schema='default',
+  catalog='hive',
+  source='planet'
+)
+```
+
+### Run a density query over the planet
+```
+planetd <- densityQuery(con, 'select histogram(tile) from planet where type = \'node\'')
+```
+
+### Set up the world map
+```
+world <- map_data("world")
+```
+
+### Generate density plot of nodes greater than 10000000
+```
+ggplot() + geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey") + geom_rect(data = noded %>% filter(xtile < 255 & d > 10000000) , aes(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, fill=d)) + coord_map("rectangular", par=c(0))
+``` 
+
+
+More examples can be found in viz/osmsci.R
 
 
 
